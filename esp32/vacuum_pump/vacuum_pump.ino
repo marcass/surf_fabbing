@@ -1,5 +1,5 @@
-#define RELAY_1 3
-#define RELAY_2 4
+#define RELAY_1 12 //gpio 12
+#define RELAY_2 27 //gpio 27
 //ESP32 using ADC1_CH6 (GPIO 34)
 #define SENS A6
 //#define SENS A1
