@@ -1,8 +1,7 @@
 #define RELAY_1 3
 #define RELAY_2 4
 //ESP32 using ADC1_CH6 (GPIO 34)
-#define SENS A6
-//#define SENS A1
+#define SENS A1
 
 //set 2 compressor or 1 compressor
 #define COMPx2
@@ -20,6 +19,7 @@ int fullScale = 922; // max pressure calibrate
 unsigned long RUN_THRESH = 1000; //1min in milliseconds, minimum time for compressor to run
 bool can_turn_off = true; //bool for short cycle timer
 unsigned long start_time = 0; //variable for timing heating/cooling duration
+unsigned long boost_time = 45000; //wait for 45s to get back to vac. If not there kick both compressors
 unsigned long MAX_RUN_TIME = 1200000; //20 min
 unsigned long RELAX_TIME = 20000; //20sec
 
@@ -28,6 +28,7 @@ const int STATE_ERROR = -1;
 const int STATE_RELAX = 0;
 const int STATE_IDLE = 1;
 const int STATE_VAC = 3;
+const int STATE_VAC_BOOST = 4;
 int state = STATE_IDLE; //initialise in idle
 
 //set up vac measurement variables
@@ -52,20 +53,13 @@ void setup() {
 
 void perform_action(String action) {
   //start timer so don't short cycle
-  start_time = millis();
   if(action == "vac") {
-    can_turn_off = false;
     #ifdef COMPx2
-      if (vacuum > double_comp_thresh) {
+      if (comp1) {
         digitalWrite(RELAY_1, HIGH);
+      }
+      if (comp2) {
         digitalWrite(RELAY_2, HIGH);
-      }else{
-        if (comp1) {
-          digitalWrite(RELAY_1, HIGH);
-        }
-        if (comp2) {
-          digitalWrite(RELAY_1, HIGH);
-        }
       }
     #endif
     #ifdef COMPx1
@@ -79,20 +73,32 @@ void perform_action(String action) {
       comp1 = !comp1;
       comp2 = !comp2;
     #endif
-  }
+  } 
+  #ifdef COMPX2
+    else if (action == "boost") {
+      digitalWrite(RELAY_1, HIGH);
+      digitalWrite(RELAY_2, HIGH);
+    }
+  #endif
 }
 
 void proc_idle() {
   if (vacuum > set_vac) {
-    state = STATE_VAC;
-    perform_action("vac");
+    if (vacuum > double_comp_thresh) {
+      state = STATE_VAC_BOOST;
+    }else{
+      state = STATE_VAC;
+    }
+    start_time = millis();
   }
 }
 
-void proc_vac() {
+void check_status() {
   // check if minimum runtime has elapsed
   if ((millis() - start_time) > RUN_THRESH) {
     can_turn_off = true;
+  }else{
+    can_turn_off = false;
   }
   // check if conditions are right to turn compressor off 
   if ((vacuum < set_vac) && can_turn_off) {
@@ -105,6 +111,20 @@ void proc_vac() {
     state = STATE_RELAX;
     perform_action("disable");
   }
+}
+
+void proc_vac() {
+  check_status();
+  if (millis() - start_time < boost_time) {
+    perform_action("vac");
+  }else{
+    state = STATE_VAC_BOOST;
+  }
+}
+
+void proc_vac_boost() {
+  check_status();
+  perform_action("boost");
 }
 
 void proc_relax() {
@@ -129,9 +149,7 @@ void loop() {
     Serial.print(vacuum);
     Serial.print("  bar, ");
     Serial.print("Analogue read is: ");
-    Serial.print(analogRead(SENS));
-    Serial.print(": State is: ");
-    Serial.println(state);
+    Serial.println(analogRead(SENS));
   }    
   // Manage states
   switch (state) {
@@ -140,6 +158,9 @@ void loop() {
       break;
     case STATE_VAC:
       proc_vac();
+      break;
+    case STATE_VAC_BOOST:
+      proc_vac_boost();
       break;
     case STATE_RELAX:
       proc_relax();
