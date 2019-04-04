@@ -1,6 +1,5 @@
 #define RELAY_1 3
 #define RELAY_2 4
-//ESP32 using ADC1_CH6 (GPIO 34)
 #define SENS A1
 
 //set 2 compressor or 1 compressor
