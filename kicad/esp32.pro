@@ -1,4 +1,4 @@
-update=Thu 04 Apr 2019 14:21:25 NZDT
+update=Thu 04 Apr 2019 15:43:11 NZDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,4 +27,6 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=
+LibDir=/home/mw/git/surf_fabbing/kicad/libs
+[eeschema/libraries]
+LibName1=libs/ESP32Dev
