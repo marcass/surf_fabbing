@@ -414,4 +414,20 @@ F 3 "" H 3900 2300 50  0000 C CNN
 	1    3900 2300
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	9350 3950 9200 3950
+Wire Wire Line
+	9200 3950 9200 3850
+Wire Wire Line
+	9350 4050 8950 4050
+Wire Wire Line
+	8950 4050 8950 3950
+Wire Wire Line
+	9350 4150 9200 4150
+Wire Wire Line
+	9200 4150 9200 4200
+Wire Wire Line
+	3650 2350 3900 2350
+Wire Wire Line
+	3900 2350 3900 2300
 $EndSCHEMATC
