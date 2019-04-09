@@ -64,32 +64,25 @@ void perform_action(String action) {
     #ifdef COMPx1
       digitalWrite(RELAY_1, HIGH);
     #endif
-  } else if (action == "disable") {
-    Serial.println("...Switching off");
-    digitalWrite(RELAY_1, LOW);
-    digitalWrite(RELAY_2, LOW);
-    #ifdef COMPx2
-      comp1 = !comp1;
-      comp2 = !comp2;
-    #endif
-  } 
-  #ifdef COMPX2
-    else if (action == "boost") {
-      digitalWrite(RELAY_1, HIGH);
-      digitalWrite(RELAY_2, HIGH);
-    }
-  #endif
+  }
+  else if (action == "boost") {
+    digitalWrite(RELAY_1, HIGH);
+    digitalWrite(RELAY_2, HIGH);
+  }
 }
 
 void proc_idle() {
   if (vacuum > set_vac) {
-    if (vacuum > double_comp_thresh) {
-      state = STATE_VAC_BOOST;
-    }else{
-      state = STATE_VAC;
-    }
     start_time = millis();
+    state = STATE_VAC;
+  }else{
+    turn_off();
   }
+}
+
+void turn_off() {
+  digitalWrite(RELAY_1, LOW);
+  digitalWrite(RELAY_2, LOW);
 }
 
 void check_status() {
@@ -101,14 +94,24 @@ void check_status() {
   }
   // check if conditions are right to turn compressor off 
   if ((vacuum < set_vac) && can_turn_off) {
+    #ifdef COMPx2
+      comp1 = !comp1;
+      comp2 = !comp2;
+    #endif
     state = STATE_IDLE;
-    perform_action("disable");
+  }
+  if (vacuum > set_vac) {
+    if (vacuum > double_comp_thresh) {
+      state = STATE_VAC_BOOST;
+    }else{
+      state = STATE_VAC;
+    }
   }
   // check if compressor has been on for too long
   if ((millis() - start_time) > MAX_RUN_TIME) {
     Serial.println("Maximum comperssor time exceeded, entering STATE_RELAX");
     state = STATE_RELAX;
-    perform_action("disable");
+    turn_off();
   }
 }
 
@@ -116,8 +119,6 @@ void proc_vac() {
   check_status();
   if (millis() - start_time < boost_time) {
     perform_action("vac");
-  }else{
-    state = STATE_VAC_BOOST;
   }
 }
 
@@ -136,7 +137,7 @@ void proc_relax() {
 void error_handler() {
   if (millis() - start_time > RUN_THRESH) {
     can_turn_off = true;
-    perform_action("disable"); 
+    turn_off(); 
   }
 }
 
@@ -148,7 +149,9 @@ void loop() {
     Serial.print(vacuum);
     Serial.print("  bar, ");
     Serial.print("Analogue read is: ");
-    Serial.println(analogRead(SENS));
+    Serial.print(analogRead(SENS));
+    Serial.print(":  Styate: ");
+    Serial.println(state);
   }    
   // Manage states
   switch (state) {
