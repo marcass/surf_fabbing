@@ -138,27 +138,27 @@ Text GLabel 7650 3400 0    60   Input ~ 0
 SCL
 Text GLabel 7650 3300 0    60   Input ~ 0
 SDA
-Text GLabel 9400 1600 0    60   Input ~ 0
-IO_1
-Text GLabel 9400 1700 0    60   Input ~ 0
-IO_2
-Text GLabel 9400 1800 0    60   Input ~ 0
-IO_3
-Text GLabel 9400 1900 0    60   Input ~ 0
-IO_4
-Text GLabel 9400 2000 0    60   Input ~ 0
-IO_5
 Text GLabel 9400 2100 0    60   Input ~ 0
+IO_1
+Text GLabel 9400 2000 0    60   Input ~ 0
+IO_2
+Text GLabel 9400 1900 0    60   Input ~ 0
+IO_3
+Text GLabel 9400 1800 0    60   Input ~ 0
+IO_4
+Text GLabel 9400 1700 0    60   Input ~ 0
+IO_5
+Text GLabel 9400 1600 0    60   Input ~ 0
 IO_6
-Text GLabel 9400 2700 0    60   Input ~ 0
-IO_7
-Text GLabel 9400 2800 0    60   Input ~ 0
-IO_8
-Text GLabel 9400 3100 0    60   Input ~ 0
-IO_11
 Text GLabel 9400 3000 0    60   Input ~ 0
-IO_10
+IO_7
+Text GLabel 9400 3200 0    60   Input ~ 0
+IO_8
+Text GLabel 9400 2700 0    60   Input ~ 0
+IO_11
 Text GLabel 9400 2900 0    60   Input ~ 0
+IO_10
+Text GLabel 9400 3100 0    60   Input ~ 0
 IO_9
 $Comp
 L ESP32Dev U1
@@ -273,7 +273,7 @@ F 3 "" H 9600 1750 50  0000 C CNN
 	1    9600 1750
 	1    0    0    -1  
 $EndComp
-Text GLabel 9400 3200 0    60   Input ~ 0
+Text GLabel 9400 2800 0    60   Input ~ 0
 IO_12
 Text GLabel 2150 4050 0    60   Input ~ 0
 IO_1
