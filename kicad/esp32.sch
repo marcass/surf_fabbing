@@ -144,19 +144,19 @@ Text GLabel 9400 2000 0    60   Input ~ 0
 IO_2
 Text GLabel 9400 1900 0    60   Input ~ 0
 IO_3
-Text GLabel 9400 1800 0    60   Input ~ 0
+Text GLabel 9400 2900 0    60   Input ~ 0
 IO_4
-Text GLabel 9400 1700 0    60   Input ~ 0
+Text GLabel 9400 1800 0    60   Input ~ 0
 IO_5
-Text GLabel 9400 1600 0    60   Input ~ 0
+Text GLabel 9400 1700 0    60   Input ~ 0
 IO_6
-Text GLabel 9400 3000 0    60   Input ~ 0
+Text GLabel 9400 1600 0    60   Input ~ 0
 IO_7
 Text GLabel 9400 3200 0    60   Input ~ 0
 IO_8
 Text GLabel 9400 2700 0    60   Input ~ 0
 IO_11
-Text GLabel 9400 2900 0    60   Input ~ 0
+Text GLabel 9400 3000 0    60   Input ~ 0
 IO_10
 Text GLabel 9400 3100 0    60   Input ~ 0
 IO_9
@@ -281,44 +281,44 @@ Text GLabel 2150 3450 0    60   Input ~ 0
 IO_2
 Text GLabel 2150 3350 0    60   Input ~ 0
 IO_3
-Text GLabel 2150 3250 0    60   Input ~ 0
+Text GLabel 3650 3350 2    60   Input ~ 0
 IO_4
 Text GLabel 2150 3150 0    60   Input ~ 0
 IO_5
 Text GLabel 2150 3050 0    60   Input ~ 0
 IO_6
-Text GLabel 2150 2550 0    60   Input ~ 0
+Text GLabel 2150 2650 0    60   Input ~ 0
 IO_7
-Text GLabel 2150 2450 0    60   Input ~ 0
+Text GLabel 3650 3050 2    60   Input ~ 0
 IO_8
 Text GLabel 3650 3550 2    60   Input ~ 0
 IO_11
-Text GLabel 3650 2650 2    60   Input ~ 0
+Text GLabel 3650 3250 2    60   Input ~ 0
 IO_10
-Text GLabel 2150 2350 0    60   Input ~ 0
+Text GLabel 3650 3150 2    60   Input ~ 0
 IO_9
 Text GLabel 3650 3450 2    60   Input ~ 0
 IO_12
 $Comp
 L GND #PWR05
 U 1 1 5CAA9F7C
-P 8850 1550
-F 0 "#PWR05" H 8850 1300 50  0001 C CNN
-F 1 "GND" H 8850 1400 50  0000 C CNN
-F 2 "" H 8850 1550 50  0000 C CNN
-F 3 "" H 8850 1550 50  0000 C CNN
-	1    8850 1550
+P 8600 1300
+F 0 "#PWR05" H 8600 1050 50  0001 C CNN
+F 1 "GND" H 8600 1150 50  0000 C CNN
+F 2 "" H 8600 1300 50  0000 C CNN
+F 3 "" H 8600 1300 50  0000 C CNN
+	1    8600 1300
 	1    0    0    -1  
 $EndComp
 $Comp
 L +3.3V #PWR06
 U 1 1 5CAA9F82
-P 8850 1300
-F 0 "#PWR06" H 8850 1150 50  0001 C CNN
-F 1 "+3.3V" H 8850 1440 50  0000 C CNN
-F 2 "" H 8850 1300 50  0000 C CNN
-F 3 "" H 8850 1300 50  0000 C CNN
-	1    8850 1300
+P 8700 1750
+F 0 "#PWR06" H 8700 1600 50  0001 C CNN
+F 1 "+3.3V" H 8700 1890 50  0000 C CNN
+F 2 "" H 8700 1750 50  0000 C CNN
+F 3 "" H 8700 1750 50  0000 C CNN
+	1    8700 1750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -326,7 +326,7 @@ Wire Wire Line
 Wire Wire Line
 	8850 1400 8850 1300
 Wire Wire Line
-	8850 1550 8850 1500
+	8850 1500 8850 1750
 Wire Wire Line
 	8850 1500 9400 1500
 $Comp
@@ -474,4 +474,8 @@ F 3 "" H 6950 5200 60  0001 C CNN
 	1    6950 5200
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	8850 1300 8600 1300
+Wire Wire Line
+	8850 1750 8700 1750
 $EndSCHEMATC
