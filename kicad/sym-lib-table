@@ -1,4 +1,5 @@
 (sym_lib_table
   (lib (name esp32-rescue)(type Legacy)(uri ${KIPRJMOD}/esp32-rescue.lib)(options "")(descr ""))
+  (lib (name ADC)(type Legacy)(uri ${KIPRJMOD}/libs/ADC.lib)(options "")(descr ""))
   (lib (name ESP32Dev)(type Legacy)(uri ${KIPRJMOD}/libs/ESP32Dev.lib)(options "")(descr ""))
 )
